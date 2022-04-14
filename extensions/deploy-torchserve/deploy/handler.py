@@ -1,0 +1,1 @@
+# See https://github.com/pytorch/serve/blob/master/model-archiver/README.md#handler

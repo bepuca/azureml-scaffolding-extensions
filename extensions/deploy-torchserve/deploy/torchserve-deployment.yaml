@@ -1,0 +1,24 @@
+
+$schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
+model: azureml:<model>:<version>  # <- Injected at call time
+model_mount_path: /var/azureml-app/azureml-models
+environment_variables:
+  MODEL_BASE_PATH: /var/azureml-app/azureml-models
+  MODEL_NAME: <model>  # <- Injected at call time
+  MODEL_VERSION: <version>  # <- Injected at call time
+environment:
+  name: torchserve-<model>  # <- Injected at call time
+  version: <version>  # <- Injected at call time
+  image: <acr_name>.azurecr.io/torchserve:8080  # <- Injected at call time
+  inference_config:
+    liveness_route:
+      port: 8080
+      path: /ping
+    readiness_route:
+      port: 8080
+      path: /ping
+    scoring_route:
+      port: 8080
+      path: /predictions/<model>  # <- Injected at call time
+instance_type: Standard_F2s_v2  #  Needs to be manually defined
+instance_count: 1  # Needs to be manually defined
