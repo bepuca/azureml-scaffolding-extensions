@@ -1,0 +1,31 @@
+Command:
+    torchserve-local    : Start a TorchServe server in your working machine
+        It uses the Docker image built with `make torchserve-image` to set up a TorchServe server
+        running locally. That is, in your working machine (where the command is ran). It is
+        useful to test a deployment locally before submitting a deployment (which often takes
+        a few minutes).
+
+        It requires a trained model inside the `./models` folder archived with
+        `make torchserve-archive` command for it to work properly.
+
+        Once it is running, you can make predictions by doing POST requests to
+        "http://localhost:<out_port>/predictions/model".
+
+Arguments:
+    exp [Required]     : Name of the experiment for which to start the server; it is defined by the
+                         folder name containing the experiment.
+    version [Required] : Version of the experiment is being deployed.
+    port               : (Default 8888) Port where TorchServe is exposed in the machine that is running
+                         Docker.
+    run-xargs          : Extra arguments to be passed to docker run. It should be a single
+                         string.
+
+Examples:
+    Spin up a TorchServe server in your working machine
+        make torchserve-local exp=my_experiment
+
+    Spin up a TorchServe model in your working machine that is exposed in port 8081
+        make torchserve-local exp=my_experiment port=8081
+
+    Make a prediction passing an image to a vision model (after spinning up server)
+        curl -X POST http://localhost:8080/predictions/model -T /path/to/image

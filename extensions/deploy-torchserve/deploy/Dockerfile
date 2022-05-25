@@ -1,4 +1,4 @@
-FROM pytorch/torchserve:0.5.3-cpu
+FROM pytorch/torchserve:0.6.0-cpu
 
 CMD [ \
     "torchserve", "--start", \

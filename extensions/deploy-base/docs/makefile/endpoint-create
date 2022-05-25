@@ -1,0 +1,14 @@
+Command:
+    endpoint-create     : Creates an online managed endpoint in Azure ML.
+        This uses (and requires) to have the Azure ML CLI v2 installed. The endpoint specs are
+        found in the YAML of the specified endpoint inside the folder `endpoints` at the root
+        folder of the project. For more information, visit
+        https://docs.microsoft.com/en-us/azure/machine-learning/reference-yaml-endpoint-online
+
+Arguments:
+    endpoint [Required] : Name of the endpoint to create. It should match the value of key `name`
+                          in the YAML whose name should also be the same value.
+
+Examples:
+    Create a managed online endpoint
+        make endpoint-create endpoint=my-unique-name

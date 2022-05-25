@@ -1,0 +1,20 @@
+Command:
+    torchserve-archive  : Archive scripted PyTorch model.
+        Use torch model archiver to create a `.mar` file ready for deployment in TorchServe.
+        Requires:
+         - `<experiment_name>-<version>.pt` file in `./models` folder. The saved model
+                should be saved using torchscript so a definition python file is not required.
+         - `handler.py` inside the `deploy` folder inside your experiment folder.
+         - Formatting environment activated and `torch-model-archiver` installed in it.
+        Outputs a `<experiment_name>-<version>.mar` file in the `./models` folder.
+
+Arguments:
+    exp     [Required] : Name of the experiment for which to archive model; it is defined by the
+                         folder name containing the experiment.
+    version [Required] : Version (integer) of the model being archived.
+    xargs              : Extra arguments to be passed to torch model archiver. It should be a single
+                         string.
+
+Examples:
+    Archive the version 2 of experiment `my_experiment`.
+        make torchserve-archive exp=my_experiment version=2

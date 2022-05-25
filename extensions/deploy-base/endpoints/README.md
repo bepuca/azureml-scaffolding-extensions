@@ -18,33 +18,35 @@ For more information and context:
 1. Before being able to make any deployment, we need to create the endpoint in Azure ML. To do so,
     we can run:
 
-    ```make endpoint-create ENDPOINT=<your_endpoint_name>```
+    ```make endpoint-create endpoint=<your_endpoint_name>```
 
     Note that for this to succeed, you need to make sure your YAML file has the `name` key specified
     (and the `description` too for sanity). The name of the YAML file should be `<endpoint_name>.YAML`. Additionally, the key `traffic` should be commented out when it is empty (which is how it is
     the first time we create and endpoint).
 
 2. An endpoint can have one or multiple deployments. For adding a deployment, refer to the
-    instructions of a specific deployment on one of your models. The Azure MLOps Scaffolding extensions
-    repository offers some examples (e.g. deploy-torchserve). Once a deployment is added, it has
-    no traffic to it. To add traffic we need to uncomment the `traffic` key in the endpoint YAML,
-    and add a `<deployment_name>: 100` key-value pair inside the `traffic`. This directs all
-    traffic of the endpoint (100%) to that deployment. If we already had one or more deployments
-    and we want to do a safe rollout to a subset of users, we can set the keys to whatever
-    percentage we want. The only constraint is they all add to 100.
+    instructions of a specific deployment on one of your models. The AzureML Scaffolding extensions
+    repository offers some examples (e.g. deploy-torchserve). Note that for all deployments, a
+    model needs to be registered. Thus, the command `make register-model` to do so manually is
+    introduced in this extension. Once a deployment is added, it has no traffic to it. To add
+    traffic we need to uncomment the `traffic` key in the endpoint YAML, and add a
+    `<deployment_name>: 100` key-value pair inside the `traffic`. This directs all traffic of the
+    endpoint (100%) to that deployment. If we already had one or more deployments and we want to do
+    a safe rollout to a subset of users, we can set the keys to whatever percentage we want.
+    The only constraint is they all add to 100.
 
 3. Once the YAML is modified, we need to make the updates live in the endpoint. To do so, run:
 
-    ```make endpoint-update ENDPOINT=<your_endpoint_name>```
+    ```make endpoint-update endpoint=<your_endpoint_name>```
 
     After that, all changes are live. We recommend then commiting the YAML so that it reflects the
     current state of things.
 
 4. To make calls to the endpoint, we will need the URL and the authorization token.
-    - For the URL, run `make endpoint-url ENDPOINT=<your_endpoint_name>`. Note that the URL ends
+    - For the URL, run `make endpoint-url endpoint=<your_endpoint_name>`. Note that the URL ends
         in `/score`. If using custom containers (which is recommended), you should strip that and
         add whatever your custom container adds.
-    - For the token, run `make endpoint-token ENDPOINT=<your_endpoint_name>`.
+    - For the token, run `make endpoint-token endpoint=<your_endpoint_name>`.
     - You can call the endpoint with something like this:
 
         ```curl POST <endoint_url> --header "Authorization: Bearer <endpoint_token>"```
@@ -56,5 +58,5 @@ For more information and context:
 5. If you want to delete the endpoint at some point. You can run the following command and the
     endpoint and all related deployments will be deleted:
 
-    ```make endpoint-delete ENDPOINT=<your_endpoint_name>```
+    ```make endpoint-delete endpoint=<your_endpoint_name>```
 

@@ -1,0 +1,13 @@
+Command:
+    endpoint-token      : Obtain auth token of an existing online managed endpoint in Azure ML.
+        This uses (and requires) to have the Azure ML CLI v2 installed. In order to make calls
+        to the endpoint, an authorization token is required. Otherwise, the requests are denied.
+        This commands returns a valid authorization token that can be used in further requests.
+
+Arguments:
+    endpoint [Required] : Name of the endpoint. It should match the value of key `name`
+                          in the YAML whose name should also be the same value.
+
+Examples:
+    Fetch the auth token for an existing managed endpoint
+        make endpoint-token endpoint=my-unique-name

@@ -22,7 +22,7 @@ need to follow steps 1 to 4. After the set-up outlined here, refer to the `READM
 2. Modify the `name` key in the `torchserve-deployment.yaml` to the name you want to give this
     deployment. A suggestion: `torchserve-<experiment_name>`.
 3. Modify the `endpoint_name` key in the `torchserve-deployment.yaml` to point to the managed
-    online endpoint you want to add this deployment to.
+    online endpoint you want to add this deployment to. The endpoint should be created already.
 4. Go to the YAML file for the endpoint the deployment now points to. Add a the following key-value
     pair under the `traffic` key (with `<experiment_name> modifed to your experiment name):
 
@@ -51,31 +51,13 @@ need to follow steps 1 to 4. After the set-up outlined here, refer to the `READM
     # Azure Container Registry associated with the ML workspace
     ACR_NAME=<name_you_just_found>
     ```
-8. Copy what is inside of the `help` command of the `Makefile` in this folder inside the `help`
-    command on your project `Makefile`.
-9. Copy the all the contents except the `help` command of the `Makefile` in this folder to the
-    `Makefile` on your project.
+8. Copy what all files in `docs/makefile` inside this folder to the `docs/makefile` of your
+    project.
+9. Copy the all the contents of the `Makefile` in this folder at the end of the `Makefile` in your
+    project.
 10. Copy the following in the Commands section under the Makefile section of your project `README.md`.
 
     ```Markdown
-    - `torchserve-archive`
-
-        Use torch model archiver to create a `.mar` file ready for deployment in TorchServe.
-        Expects a `<experiment_name>-<version>.pt` file in `./models` folder. The saved model
-        should be saved using torchscript so a definition file is not defined. It also expects
-        a `handler.py` inside the `deploy` folder inside your experiment folder. Outputs a
-        `<experiment_name>-<version>.mar` file in the `./models` folder.
-        Requires the `EXP`, `VERSION` arguments. Accepts `XARGS` extra arguments.
-
-        > Example: `make torchserve-archive EXPERIMENT=my_experiment VERSION=2`
-
-    - `torchserve-image`
-
-        Build the TorchServe docker image needed for deployment and uploads it to the Azure
-        Container Registry associated with the Azure ML workspace.
-        Requires the `EXP` argument. Accepts `XARGS` extra arguments.
-
-        > Example: `make torchserve-image EXPERIMENT=my_experiment`
 
     - `torchserve-local`
 

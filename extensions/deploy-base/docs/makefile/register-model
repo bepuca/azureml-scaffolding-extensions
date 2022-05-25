@@ -1,0 +1,19 @@
+Command:
+    register-model : Register a trained model as "experiment:version" in AzureML.
+        This uses (and requires) to have the Azure ML CLI v2 installed. In order to be able to
+        deploy a trained model, we need to register it in Azure ML first.
+
+        It expects a trained model in the folder `./models` named exactly
+        `<experiment_name>-<version>.<filetype>`
+
+Arguments:
+    exp [Required]      : Name of the experiment for which to register model; it is defined by the
+                          folder name containing the experiment.
+    version [Required]  : Version of the experiment that is being registered.
+    filetype [Required] : Type of file of the trained model.
+    xargs               : Extra arguments to be passed to `az ml model create`. It should be a
+                          single string.
+
+Examples:
+    Register a TorchServe ready .mar model
+        make register-model exp=torch version=1 filetype=mar

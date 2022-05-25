@@ -1,0 +1,24 @@
+Command:
+    torchserve-deploy   : Deploy a registered TorchServe model.
+        It deploys a previously registered TorchServe model (i.e., PyTorch model archived with
+        torch-model-archiver) specified by the experiment name and the version. The deployment
+        is added under the specified endpoint.
+
+        Make sure that the `instance_type` and `instance_count` keys in the
+        `torchserve-deployment.yaml` that lives in the deploy folder of the experiment are set to
+        what you need.
+
+        Note that no traffic will be allocated to the new deployment until you modify the
+        endpoint YAML and update it with the `make update-endpoint`.
+
+Arguments:
+    exp [Required]        : Name of the experiment for which to deploy model; it is defined by the
+                            folder name containing the experiment.
+    version [Required]    : Version (integer) of the model being archived.
+    endpoint [Required]   : Endpoint name in which to add the deployment.
+    deployment [Required] : Deployment name. It is recommended to give it a meaningful name to
+                            understand what is deployed at any point in time.
+
+Examples:
+    Deploy the version 3 of super_experiment into unique-endpoint
+        make torchserve-deploy exp=my_experiment version=3 endpoint=unique-endpoint deployment=my_experiment-3

@@ -1,0 +1,10 @@
+Command:
+    torchserve-delete   : Delete an existing deployment
+
+Arguments:
+    endpoint [Required]   : Endpoint name in which the deployment lives.
+    deployment [Required] : Name of the deployment to be deleted
+
+Examples:
+    Remove deployment of version 3 of my_experiment
+        make torchserve-delete endpoint=unique-endpoint deployment=my_experiment-3

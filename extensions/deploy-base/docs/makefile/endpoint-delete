@@ -1,0 +1,12 @@
+Command:
+    endpoint-delete     : Deletes an existing online managed endpoint in Azure ML.
+        This uses (and requires) to have the Azure ML CLI v2 installed. It also deletes all
+        deployments associated with the specified endpoint.
+
+Arguments:
+    endpoint [Required] : Name of the endpoint to delete. It should match the value of key `name`
+                          in the YAML whose name should also be the same value.
+
+Examples:
+    Delete an existing managed online endpoint
+        make endpoint-delete endpoint=my-unique-name

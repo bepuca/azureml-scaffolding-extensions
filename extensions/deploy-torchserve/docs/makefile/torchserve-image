@@ -1,0 +1,16 @@
+Command:
+    torchserve-image    : Build TorchServe image & push it to ACR.
+        Build the TorchServe docker image needed for deployment and uploads it to the Azure
+        Container Registry associated with the Azure ML workspace. It requires the Azure CLI and
+        `ACR_NAME` in `config.env`. The image built is tagged as
+        <acr_name>.azurecr.io/torchserve-<experiment_name>:8080
+
+Arguments:
+    exp [Required] : Name of the experiment for which to build the image; it is defined by the
+                     folder name containing the experiment.
+    build-xargs    : Extra arguments to be passed to docker build. It should be a single
+                     string.
+
+Examples:
+    Build and push TorchServe image
+        make torchserve-image exp=my_experiment

@@ -1,0 +1,15 @@
+Command:
+    endpoint-url        : Obtain URL of an existing online managed endpoint in Azure ML.
+        This uses (and requires) to have the Azure ML CLI v2 installed. In order to make calls
+        to the endpoint, we need to know the URL of the endpoint. This command fetches it. Note
+        that by default, the returned URL ends with `/score`. If you deploy using a custom
+        container, which we recommend, the end of the URL might be different. To make calls to it,
+        you will need to strip `/score` with the specifics of your deployment.
+
+Arguments:
+    endpoint [Required] : Name of the endpoint. It should match the value of key `name`
+                          in the YAML whose name should also be the same value.
+
+Examples:
+    Fetch the URL for an existing managed endpoint
+        make endpoint-url endpoint=my-unique-name
