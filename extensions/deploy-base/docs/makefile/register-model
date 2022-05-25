@@ -1,5 +1,5 @@
 Command:
-    register-model : Register a trained model as "experiment:version" in AzureML.
+    register-model      : Register a trained model as "experiment:version" in AzureML.
         This uses (and requires) to have the Azure ML CLI v2 installed. In order to be able to
         deploy a trained model, we need to register it in Azure ML first.
 

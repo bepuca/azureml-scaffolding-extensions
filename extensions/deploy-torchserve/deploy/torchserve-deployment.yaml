@@ -3,7 +3,7 @@ $schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.sch
 model: azureml:<model>:<version>  # <- Injected at call time
 model_mount_path: /var/azureml-app/azureml-models
 environment_variables:
-  MODEL_BASE_PATH: /var/azureml-app/azureml-models
+  MODEL_BASE_PATH: /var/azureml-app/azureml-models # This is where Azure ML puts models
   MODEL_NAME: <model>  # <- Injected at call time
   MODEL_VERSION: <version>  # <- Injected at call time
 environment:
@@ -19,6 +19,6 @@ environment:
       path: /ping
     scoring_route:
       port: 8080
-      path: /predictions/<model>  # <- Injected at call time
-instance_type: Standard_F2s_v2  #  Needs to be manually defined
-instance_count: 1  # Needs to be manually defined
+      path: /predictions/model
+instance_type: Standard_F2s_v2  #  Machine type were to deploy; needs to be manually defined
+instance_count: 1  # Number of machines where to deploy; needs to be manually defined

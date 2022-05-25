@@ -1,20 +1,9 @@
-help:
-	@echo ""
-	@if [ -z "$(cmd)" ]; then { \
-		echo "For a more detailed help of a command, run 'make help cmd=<cmd>'.\n"; \
-		echo "Commands:"; \
-		for file in `ls ./docs/makefile`; do cat ./docs/makefile/$$file | head -2 | tail -1; done; \
-	} else { \
-		cat ./docs/makefile/$(cmd); \
-	} fi
-	@echo "";
-
 # `deploy-torchserve` extension <<<<<<<<
 check-arg-deployment: arg=deployment
 check-arg-deployment: check-arg
 
 torchserve-archive: check-arg-exp check-arg-version
-	torch-model-archiver \
+	torch-model-archiver --force \
 		--model-name $(exp)-$(version) --version $(version) \
 		--serialized-file ./models/$(exp).pt \
 		--handler $(CODE_PATH)/$(exp)/deploy/handler.py \
@@ -30,15 +19,15 @@ torchserve-image: check-arg-exp
 	az acr login -n $(ACR_NAME)
 
 	# Push image to the ACR of the Azure ML workspace
-	docker push $(ACR_NAME).azurecr.io/torchserve:8080
+	docker push $(ACR_NAME).azurecr.io/torchserve-$(exp):8080
 
 torchserve-local: port=8080
 torchserve-local: check-arg-exp check-arg-version
 	docker run --rm -it -p 8080:$(port) $(run_xargs) \
-		--mount type=bind,source="$(PWD)/models",target="/home/model-server/model-store/$(exp)/$(version)" \
+		--mount type=bind,source="$(PWD)/models",target="/home/model-server/model-store" \
 		-e MODEL_BASE_PATH=/home/model-server/model-store \
 		-e MODEL_NAME=$(exp) \
-		-e MODEL_version=$(version) \
+		-e MODEL_VERSION=$(version) \
 		$(ACR_NAME).azurecr.io/torchserve-$(exp):8080
 
 
