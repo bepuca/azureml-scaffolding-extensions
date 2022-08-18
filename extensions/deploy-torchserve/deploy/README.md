@@ -18,6 +18,8 @@ it is less transparent.
     import torch
 
     model = ...  # This has to be a trained nn.Module for this to work.
+    # Ensure model is saved on eval mode
+    model.eval()
     # Compile the model to TorchScript
     scripted_model = torch.jit.script(model)
     # Save the scripted model with a ".pt" extension
