@@ -14,3 +14,4 @@ your project and how to use it.
 - **deploy-torchserve** - Add a TorchServe deployment to an existing online managed endpoint in
     Azure Machine Learning.
     - **Dependencies**: deploy-base
+- **gpu-image** - A blueprint Dockerfile for building Docker images that need access to NVIDIA GPUs.
