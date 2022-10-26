@@ -13,5 +13,6 @@ your project and how to use it.
     deployments.
 - **deploy-torchserve** - Add a TorchServe deployment to an existing online managed endpoint in
     Azure Machine Learning.
+- **devcontainer** - Provides a blueprint of a `devcontainer.json` you can use to leverage the [VSCode Dev Containers](https://code.visualstudio.com/docs/remote/containers).
     - **Dependencies**: deploy-base
 - **gpu-image** - A blueprint Dockerfile for building Docker images that need access to NVIDIA GPUs.
